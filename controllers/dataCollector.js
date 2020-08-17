@@ -1,5 +1,6 @@
 const fs = require("fs")
 const screenshot = require('screenshot-desktop')
+const { dialog } = require("electron")
 // const ioHook = require('iohook');
 const activeWindows = require('electron-active-window');
 var socket = require('socket.io-client')('https://tracker-serv.herokuapp.com/?token=localstoregickvercnem');
@@ -49,7 +50,8 @@ socket.on('connect', () => {
     // socket.emit('mysoket', mysoket);
 
     socket.on("message", (data) => {
-        alert(data.message)
+        // alert(data.message)
+        dialog.showErrorBox("message from the Meneger", data.message)
     })
 
 })
