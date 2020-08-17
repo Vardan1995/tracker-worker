@@ -7,18 +7,27 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <style type="text/css">
-    button {
-      width: 200px;
-      height: 40px;
-      background-color: green;
-      border-radius: 25px;
+    body {
+      background-color: darkslategray;
+    }
+
+    .container {
+      padding: 10%;
+
+    }
+
+    .controls {
+      display: inline-flex;
+
+      margin: 12px;
     }
   </style>
 </head>
 
 <body>
-  <div>
-    <button onclick="takeScreanshoot()">click</button>
+  <div class="container">
+    <div id="start" class="controls" onclick="start()"><img src="./images/icons8-play-64.png"></div>
+    <div id="stop" class="controls"><img src="./images/icons8-stop-64.png"></div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
   <script src="renderer.js"></script>

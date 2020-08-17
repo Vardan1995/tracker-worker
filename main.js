@@ -1,10 +1,11 @@
-const { app, BrowserWindow } = require("electron")
-
+const { app, BrowserWindow, ipcMain } = require("electron")
+const dataCollector = require("./controllers/dataCollector")
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 700,
-    height: 650,
+    width: 300,
+    height: 200,
+    // frame: false,
     webPreferences: {
       // webSecurity: false,
       nodeIntegration: true,
@@ -12,7 +13,8 @@ function createWindow() {
     }
   })
   mainWindow.loadFile("index.html")
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
+  mainWindow.removeMenu()
 }
 
 app.whenReady().then(() => {
@@ -20,6 +22,10 @@ app.whenReady().then(() => {
 
   app.on("activate", function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
+  })
+
+  ipcMain.on('startTracker', (event, arg) => {
+    dataCollector.startTracker(arg)
   })
 })
 

@@ -2,8 +2,8 @@ const fs = require("fs")
 const screenshot = require('screenshot-desktop')
 // const ioHook = require('iohook');
 const activeWindows = require('electron-active-window');
-var socket = require('socket.io-client')('https://tracker-serv.herokuapp.com');
-// const axios = require("axios")
+var socket = require('socket.io-client')('https://tracker-serv.herokuapp.com/?token=localstoregickvercnem');
+// var socket = require('socket.io-client')(`http://192.168.137.1:8080?token=${localStorage.getItem("x-auth-token")}`);
 
 
 function takeScreanshoot() { // Takes a screanshoots and send it to the server
@@ -12,7 +12,7 @@ function takeScreanshoot() { // Takes a screanshoots and send it to the server
         // socket.emit('sendd', { buf, info });
         ////
 
-        socket.emit('sendd', { room: 1234, buf, info, workerID: "Hovo" });
+        socket.emit('sendd', { room: 1234, buf, info, workerID: "Vardan Bakhshyan" });
 
         ///
     }).catch((err) => {
@@ -41,15 +41,30 @@ function activeWindowInfo() {// Takes the current running app`s name or another 
 //   ioHook.start();
 // }
 
-const mysoket = "Emini soket"
+
+const mysoket = "vardani socket"
 
 socket.on('connect', () => {
-    socket.emit('subscribe', { room: 1234, token: "llllllbbb", mysoket });
+    socket.emit('subscribe', { room: 1234, token: "blabalbal", mysoket });
+    // socket.emit('mysoket', mysoket);
 
     socket.on("message", (data) => {
-        console.log(data.message)
+        alert(data.message)
     })
-    setInterval(() => {
-        takeScreanshoot()
-    }, 500);
+
 })
+
+let myVar
+function startTracker(bool) {
+    if (bool) {
+
+        myVar = setInterval(takeScreanshoot, 1000);
+    } else {
+
+        clearInterval(myVar);
+    }
+}
+
+module.exports = {
+    startTracker
+};
